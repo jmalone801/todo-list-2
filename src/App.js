@@ -26,12 +26,20 @@ function App() {
     setNewTodo("");
   }
 
-  // Function to delete todo item
+  // Function to delete todo item (alternative)
+  // const handlerTodoDelete = (deleteIndex) => {
+  //   const filteredTodos = todos.filter((todo, i) => {
+  //     return i !== deleteIndex;
+  //   })
+  //   setTodos(filteredTodos);
+  // }
+
+  // Function to delete todo item (alternative)
   const handlerTodoDelete = (deleteIndex) => {
-    const filteredTodos = todos.filter((todo, i) => {
-      return i !== deleteIndex;
-    })
-    setTodos(filteredTodos);
+    const newArray = [...todos];
+    newArray.splice(deleteIndex, 1);
+
+    setTodos(newArray);
   }
 
   // Function to check off item
@@ -48,6 +56,7 @@ function App() {
   return (
     <div className="App">
       <h2>Todo List:</h2>
+      {/* newTodo form */}
       <form onSubmit={(event) => { handleNewTodoSubmit(event) }} >
         <input onChange={(event) => { setNewTodo(event.target.value) }} type="text" value={newTodo} />
         <div>
@@ -55,6 +64,7 @@ function App() {
         </div>
       </form>
 
+      {/* Maps through list of todos */}
       {todos.map((todo, i) => {
         return (
           <Todo 
@@ -62,9 +72,7 @@ function App() {
           key={i}
           i={i}
           handleToggleComplete={handleToggleComplete}
-          handlerTodoDelete={handlerTodoDelete}/>
-        );
-      })}
+          handlerTodoDelete={handlerTodoDelete}/> ) })}
     </div>
   );
 }
